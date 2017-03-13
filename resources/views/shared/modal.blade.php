@@ -28,9 +28,9 @@
                     <div class="form-group">
                         <label for="music-tag">Select list:</label>
                         <select name="music-tag" class="form-control" id="music-tag">
-                            <option value="1">Country</option>
-                            <option value="2">Rock</option>
-                            <option value="3">Bla</option>
+                            @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
