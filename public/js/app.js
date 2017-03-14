@@ -15,6 +15,9 @@ dropSection.ondragleave = function () {
     return false;
 };
 
+/*
+ * Drag and Drop
+ */
 dropSection.ondrop = function (e) {
     e.preventDefault();
     $(this).removeClass("dragover");
@@ -30,23 +33,25 @@ dropSection.ondrop = function (e) {
     }
     reader.readAsDataURL(files[0]);
 
-    //upload(files);
 };
 
-$('#btn-upload-data').change(function () {
+/*
+ * Drag and Drop
+ */
+$('#btn-upload-data').change(function (e) {
 
     var files = e.currentTarget.files;
 
-    $('.progress-bar').width(0).text("").removeClass("abort");
-    $('#btn-cancel').prop("disabled", false);
-    $('#btn-cancel').removeClass("disable");
+    //$('#btn-upload').prop("disabled", true);
+    //$('#btn-upload').addClass("disable");
 
-    $('#btn-upload').prop("disabled", true);
-    $('#btn-upload').addClass("disable");
-    $('.progress-main').hide();
-    $('.result').empty();
+    var reader = new FileReader();
 
-    upload(files);
+    reader.onload = function (e) {
+        $('#audio_player').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(files[0]);
+
 });
 
 $('#btn-upload-save').click(function (e) {
@@ -63,8 +68,6 @@ function upload(files) {
     var formData = new FormData(form);
     var xhr = new XMLHttpRequest();
     var x;
-
-
 
     formData.append("file", files[0]);
 
