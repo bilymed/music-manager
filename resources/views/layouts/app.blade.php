@@ -52,6 +52,7 @@
 <script src="{{url('js/mustache.min.js')}}"></script>
 <script src="{{url('js/bootstrap.min.js')}}"></script>
 <script src="{{url('js/app.js')}}"></script>
+<script src="{{url('js/filter.js')}}"></script>
 
 @yield('scripts')
 </body>

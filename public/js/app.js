@@ -33,15 +33,17 @@ $(document).ready(function () {
             $('#audio_player').attr('src', e.target.result);
         }
         reader.readAsDataURL(files[0]);
-
     };
 
     /*
-     * Drag and Drop
+     * Upload Button
      */
     $('#btn-upload-data').change(function (e) {
+        console.log("ok");
 
-        var files = e.currentTarget.files;
+        files = e.currentTarget.files;
+
+        console.log(files[0]);
 
         var reader = new FileReader();
 
@@ -51,6 +53,9 @@ $(document).ready(function () {
         reader.readAsDataURL(files[0]);
     });
 
+    /*
+     * Save Changes
+     */
     $('#btn-upload-save').click(function (e) {
 
         $('#btn-upload').prop("disabled", true);
@@ -61,10 +66,11 @@ $(document).ready(function () {
 
     function upload(files) {
 
+        console.log(files)
+
         var form = document.getElementById('myform');
         var formData = new FormData(form);
         var xhr = new XMLHttpRequest();
-        var x;
 
         formData.append("file", files[0]);
 

@@ -72,20 +72,20 @@ class HomeController extends Controller
                 ];
 
             } else {
-
+                $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
                 $music = new Music();
                 $music->name = $request->input('music-name');
-                $music->url = '/music/' . $file->getClientOriginalName();
+                $music->url = '/music/' . $fileName;
                 $music->tag_id = $request->input('music-tag');
                 $music->save();
-                $file->move(public_path() . '/music/', $music->id . '.' . $file->getClientOriginalExtension());
+                $file->move(public_path() . '/music/', $fileName);
                 $tag = new Tag();
                 $response = [
                     'name' => $file->getClientOriginalName(),
                     'music-name' => $request->input('music-name'),
                     'tag' => $tag->where('id', $request->input('music-tag'))->first(),
                     'type' => $file->getClientOriginalExtension(),
-                    'url' => url('/music/' . $file->getClientOriginalName()),
+                    'url' => url('/music/' . $fileName),
                     'msg' => 'Uploaded',
                     'status' => true
                 ];

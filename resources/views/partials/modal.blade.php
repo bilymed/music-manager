@@ -47,10 +47,6 @@
                         </audio>
                     </div>
 
-                    <div class="result"></div>
-                    <div class="clear"></div>
-                    <hr>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" id="btn-upload-save" class="btn btn-primary">Save changes</button>
