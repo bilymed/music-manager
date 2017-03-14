@@ -72,12 +72,13 @@ class HomeController extends Controller
                 ];
 
             } else {
-                $file->move(public_path() . '/music/', $file->getClientOriginalName());
+
                 $music = new Music();
                 $music->name = $request->input('music-name');
                 $music->url = '/music/' . $file->getClientOriginalName();
                 $music->tag_id = $request->input('music-tag');
                 $music->save();
+                $file->move(public_path() . '/music/', $music->id . '.' . $file->getClientOriginalExtension());
                 $tag = new Tag();
                 $response = [
                     'name' => $file->getClientOriginalName(),
