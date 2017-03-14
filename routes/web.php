@@ -13,4 +13,8 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::post('upload', 'HomeController@upload');
+Route::post('/upload', 'HomeController@upload');
+
+Route::get('/music/tag/{id} ', 'HomeController@findByTag');
+
+Route::get('/music-by-name ', 'HomeController@findByName');

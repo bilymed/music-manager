@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Add new Music
 </button>
 
 <!-- Modal -->
@@ -38,7 +38,7 @@
 
                         <div id="drop-section">Drop here</div>
                         <input type="file" name="file" id="btn-upload-data">
-                        <button id="btn-upload" class="btn btn-primary">Upload</button>
+                        <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
 
                         <audio controls="controls" id="audio_player">
                             <source src="#" type="audio/ogg"/>
