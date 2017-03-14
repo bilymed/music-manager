@@ -78,8 +78,11 @@ class HomeController extends Controller
                 $music->url = '/music/' . $file->getClientOriginalName();
                 $music->tag_id = $request->input('music-tag');
                 $music->save();
+                $tag = new Tag();
                 $response = [
                     'name' => $file->getClientOriginalName(),
+                    'music-name' => $request->input('music-name'),
+                    'tag' => $tag->where('id', $request->input('music-tag'))->first(),
                     'type' => $file->getClientOriginalExtension(),
                     'url' => url('/music/' . $file->getClientOriginalName()),
                     'msg' => 'Uploaded',
@@ -87,7 +90,7 @@ class HomeController extends Controller
                 ];
             }
 
-            return response()->json($response);
+            return response()->json(["track" => $response]);
 
         } else {
             return 'No Data Found';

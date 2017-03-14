@@ -18,6 +18,10 @@ class CreateTagsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+        
+        DB::table('tags')->insert(['name' => 'Country']);
+        DB::table('tags')->insert(['name' => 'Classic']);
+        DB::table('tags')->insert(['name' => 'Bla']);
     }
 
     /**
