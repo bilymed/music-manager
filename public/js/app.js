@@ -1,25 +1,29 @@
 $(document).ready(function () {
-    var dropSection = document.getElementById('drop-section');
+
+    var dropSection = $('#drop-section').get(0);
     var files;
 
-    $('#btn-upload').click(function () {
-        $('#btn-upload-data').click();
-    });
-
+    /*
+     * Drag over
+     */
     dropSection.ondragover = function () {
         $(this).addClass("dragover");
         return false;
     };
 
+    /*
+     * Drag outside section
+     */
     dropSection.ondragleave = function () {
         $(this).removeClass("dragover");
         return false;
     };
 
     /*
-     * Drag and Drop
+     * Drop On
      */
     dropSection.ondrop = function (e) {
+
         e.preventDefault();
         $(this).removeClass("dragover");
 
@@ -36,10 +40,14 @@ $(document).ready(function () {
     };
 
     /*
-     * Upload Button
+     * Upload-button click
      */
+
+    $('#btn-upload').click(function () {
+        $('#btn-upload-data').click();
+    });
+
     $('#btn-upload-data').change(function (e) {
-        console.log("ok");
 
         files = e.currentTarget.files;
 
@@ -56,47 +64,44 @@ $(document).ready(function () {
     /*
      * Save Changes
      */
+
     $('#btn-upload-save').click(function (e) {
+
+        /*var track = {
+         musicName: $('#music-name').val(),
+         musicTag: $('#music-tag-add').find(":selected").val(),
+         file:  files[0],
+         };*/
+
+        var form = $('#myform').get(0);
+        //var form = document.getElementById('myform');
+        var data = new FormData(form);
+        data.append("file", files[0]);
+        console.log(data);
 
         $('#btn-upload').prop("disabled", true);
         $('#btn-upload').addClass("disable");
 
-        upload(files);
-    });
-
-    function upload(files) {
-
-        console.log(files)
-
-        var form = document.getElementById('myform');
-        var formData = new FormData(form);
-        var xhr = new XMLHttpRequest();
-
-        formData.append("file", files[0]);
-
-
-        xhr.upload.addEventListener("progress", function (e) {
-            var p = Math.round(e.loaded / e.total * 100);
-            $('.progress-bar').empty().css("width", p + "%");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
-        $('#btn-cancel').click(function () {
-            xhr.abort();
-            $('.progress-bar').addClass('abort').empty().append("(aborted)");
-        });
-
-        xhr.onreadystatechange = function () {
-
-            if (xhr.readyState == 4 && xhr.status == 200) {
-
-                var result = this.responseText;
-
+        $.ajax({
+            url: '/upload',
+            type: 'POST',
+            dataType: 'json',
+            processData: false, // Don't process the files
+            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+            data: data,
+            success: function (result) {
                 if (result != '' && result != 'No Data Found') {
 
                     $('#btn-cancel').prop('disabled', true).addClass('disable');
                     $('#btn-upload').prop('disabled', false).removeClass('disable');
 
-                    result = JSON.parse(result);
+                    //result = JSON.parse(result);
 
                     if (result.status == true) {
 
@@ -112,11 +117,8 @@ $(document).ready(function () {
 
                 console.log(result);
             }
-        };
 
-        xhr.open("post", "/upload", true);
-        xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'));
-        xhr.send(formData);
-    }
+        });
+    });
 });
 
