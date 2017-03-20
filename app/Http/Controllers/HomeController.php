@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Music;
+use App\Repositories\IMusicRepository;
+use App\Repositories\MusicRepository;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -53,9 +55,11 @@ class HomeController extends Controller
 
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request, Music $music)
     {
         $allow = ['mp3', 'wav'];
+
+        //dd($request->all());
 
         if ($request->hasFile('file')) {
 
@@ -73,11 +77,12 @@ class HomeController extends Controller
 
             } else {
                 $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
-                $music = new Music();
                 $music->name = $request->input('music-name');
                 $music->url = '/music/' . $fileName;
                 $music->tag_id = $request->input('music-tag');
-                $music->save();
+                $musicRepository = new MusicRepository($music);
+                $musicRepository->save();
+               // $musicRepository->save();
                 $file->move(public_path() . '/music/', $fileName);
                 $tag = new Tag();
                 $response = [
