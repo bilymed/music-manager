@@ -88,25 +88,29 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             data: data,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (e) {
+                    var p = Math.round(e.loaded / e.total * 100);
+                    $('.progress-bar').empty().css("width", p + "%");
+                }, false);
+                return xhr;
+            },
             success: function (result) {
                 if (result != '' && result != 'No Data Found') {
 
                     $('#btn-cancel').prop('disabled', true).addClass('disable');
                     $('#btn-upload').prop('disabled', false).removeClass('disable');
 
-                    if (result.status == true) {
 
-                    } else {
+                    var template = $('#template-new-row').html();
+                    var rendered = Mustache.render(template, result);
+                    $('#music-table-body').append(rendered);
 
-                        var template = $('#template-new-row').html();
-                        var rendered = Mustache.render(template, result);
-                        $('#music-table-body').append(rendered);
-                    }
                 } else {
                     alert("Data Not Found");
                 }
-            }
-
+            },
         });
     });
 });
