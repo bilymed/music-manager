@@ -89,7 +89,7 @@ $(document).ready(function () {
             contentType: false,
             data: data,
             xhr: function () {
-                var xhr = new window.XMLHttpRequest();
+                var xhr = $.ajaxSettings.xhr();
                 xhr.upload.addEventListener("progress", function (e) {
                     var p = Math.round(e.loaded / e.total * 100);
                     $('.progress-bar').empty().css("width", p + "%");
