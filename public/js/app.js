@@ -86,15 +86,13 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             processData: false,
-            contentType: false, 
+            contentType: false,
             data: data,
             success: function (result) {
                 if (result != '' && result != 'No Data Found') {
 
                     $('#btn-cancel').prop('disabled', true).addClass('disable');
                     $('#btn-upload').prop('disabled', false).removeClass('disable');
-
-                    //result = JSON.parse(result);
 
                     if (result.status == true) {
 
@@ -107,8 +105,6 @@ $(document).ready(function () {
                 } else {
                     alert("Data Not Found");
                 }
-
-                console.log(result);
             }
 
         });
