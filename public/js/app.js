@@ -67,14 +67,7 @@ $(document).ready(function () {
 
     $('#btn-upload-save').click(function (e) {
 
-        /*var track = {
-         musicName: $('#music-name').val(),
-         musicTag: $('#music-tag-add').find(":selected").val(),
-         file:  files[0],
-         };*/
-
         var form = $('#myform').get(0);
-        //var form = document.getElementById('myform');
         var data = new FormData(form);
         data.append("file", files[0]);
         console.log(data);
@@ -92,8 +85,8 @@ $(document).ready(function () {
             url: '/upload',
             type: 'POST',
             dataType: 'json',
-            processData: false, // Don't process the files
-            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+            processData: false,
+            contentType: false, 
             data: data,
             success: function (result) {
                 if (result != '' && result != 'No Data Found') {
