@@ -2,14 +2,14 @@
 <tr>
     <td>
         <audio controls="controls">
-            <source src="{{track.url}}" type="audio/mpeg"/>
+            <source src="@{{track.url}}" type="audio/mpeg"/>
         </audio>
     </td>
     <td>
-        {{track.music-name}}
+        @{{track.music-name}}
     </td>
     <td>
-        {{track.tag.name}}
+        @{{track.tag.name}}
     </td>
 <tr>
 

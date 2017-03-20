@@ -1,26 +1,26 @@
 <script id="template" type="x-tmpl-mustache">
 
-    {{#musics}}
+    @{{#musics}}
     <tr>
         <td>
             <audio controls="controls">
-                <source src="{{url}}" type="audio/mpeg"/>
+                <source src="@{{url}}" type="audio/mpeg"/>
             </audio>
         </td>
         <td>
-            {{name}}
+            @{{name}}
         </td>
         <td>
-            {{tag.name}}
+            @{{tag.name}}
         </td>
     <tr>
-   {{/musics}}
+   @{{/musics}}
 
-   {{^musics}}
+    @{{^musics}}
    <tr>
         <td colspan="3"><em>No matches found</em></td>
    </tr>
-   {{/musics}}
+   @{{/musics}}
 
 
 </script>
